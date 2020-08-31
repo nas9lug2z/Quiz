@@ -13,9 +13,10 @@ body {
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#111732', endColorstr='#3d757e',GradientType=1 ); /* IE6-9 */
     overflow-x: scroll;
     background-attachment: fixed;
-    background-image: url(/images/bg.png);
+    background-image: url(../images/bg.png);
 }
 .container {
+
 }
 .header{
     text-align: center;
@@ -79,8 +80,17 @@ h5{
 .subtask {
     margin: 1rem 0;
 }
+.subtask:hover,
+.subsubtask:hover {
+    cursor: pointer;
+    user-select: none;
+}
 .subsubtask {
     margin-left: 1rem;
     font-size: 1rem;
 
+}
+.done {
+    text-decoration: line-through;
+    opacity: 0.5;
 }
