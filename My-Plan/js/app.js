@@ -1,43 +1,20 @@
-const mainTaskList = document.querySelectorAll(".task-name");
-const subTaskList = document.querySelectorAll(".subtask");
-const subsubTaskList = document.querySelectorAll(".subsubtask");
+const subsubTasks = document.querySelectorAll(".subsubtask");
+const subTasks = document.querySelectorAll(".subtask");
+const mainTasks = document.querySelectorAll(".task-name");
 
-function toggleDone(tasklist) {
-    for (let item of tasklist) {
-        var counter = 0;
+//cross out a done task
+function toggleDone(tasks) {
+    for (let item of tasks) {
         item.addEventListener ("click", (e) => {
-            item.classList.toggle("done");
-            if (item.classList.length === 2) {
-                counter++;
-                console.log(`one is checked and the counter is ${counter}`);
-                if (counter === 2) {
-                    console.log("all is checked")
-                    item.parentNode.previousElementSibling.classList.add("done");
-                }
-                else {
-                    item.parentNode.previousElementSibling.classList.remove("done");
-                }
-            }
-            else {
-                counter--;
-                console.log(`one is UNchecked and the counter is ${counter}`)
-                item.closest("li").classList.remove("done");
-                if (counter === 2) {
-                    console.log("all is checked")
-                    item.parentNode.previousElementSibling.classList.add("done");
-                }
-                else {
-                    item.parentNode.previousElementSibling.classList.remove("done");
-                }
-            };
-
-
+            e.target.classList.toggle("done");
         });
+    }
 }
+
+function completeFullTask (task) {
+
 }
 
 
-// toggleDone(subTaskList);
-toggleDone(subsubTaskList);
-// toggleDone(subTask);
-// toggleDone(subsubTask)
+toggleDone(subsubTasks);
+toggleDone(subTasks);

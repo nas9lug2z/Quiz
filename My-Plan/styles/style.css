@@ -67,11 +67,12 @@ h5{
 .task-name {
     width: 25%;
     flex: none;
-    margin: 1rem;
     font-size: 3rem;
-    margin: 0 1rem;
+    margin: 0 1.2rem 0 0.5rem;
     font-size: 2rem;
     font-weight: 800;
+    cursor: pointer;
+
 }
 .subtasks-list {
     font-size: 1.2rem;
@@ -86,9 +87,10 @@ h5{
     user-select: none;
 }
 .subsubtask {
+    margin-top: 0.5rem;
     margin-left: 1rem;
     font-size: 1rem;
-
+    font-weight: 400;
 }
 .done {
     text-decoration: line-through;
