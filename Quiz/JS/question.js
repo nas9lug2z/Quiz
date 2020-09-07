@@ -3,7 +3,7 @@ export default function Question(question, choices, answerKey) {
     this.choices = choices;
     this.answerKey = answerKey;
 }
+Question.prototype.isCorrect = function (quessKey) {
+    return quessKey === this.answerKey;
+}
 
-const q1 = new Question (
-    ""
-)
