@@ -67,6 +67,7 @@
     width: 0%;
     background-color: var(--main-theme-color);
     border-right: 2px solid black;
+    transition: 0.3 all ease;
 }
 .tagline {
     font-family: var(--font-body-stack);
