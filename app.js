@@ -136,6 +136,7 @@ const App = (() => {
             renderEndScreen();
         }
         else {
+            setInnerHTML(tagLine, "Pick an option below");
             //1. render the question
             renderQuestion();
             //2. render the choices
