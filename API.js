@@ -12,9 +12,9 @@ const importedQuestions = (_ => {
         const quantity = 10;
         const difficulty = `easy`;
         const type = `multiple`;
-        const category1 = 29; //comics
+        const category1 = 9; //comics
         const category2 = 11; //movies
-        const URL = `${endPoint}api.php?amount=${quantity}&type=${type}&category=${category1}`
+        const URL = `${endPoint}api.php?amount=${quantity}&difficulty=${difficulty}&type=${type}&category=${category1}`
 
         //function to shuffle
         const shuffle = arr => {
