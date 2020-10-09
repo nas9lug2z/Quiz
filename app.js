@@ -1,5 +1,6 @@
 import Question from "./question.js";
 import Quiz from "./quiz.js";
+import ImportedQuestions from "./api.js";
 
 const App = (() => {
     //cache the DOM: get all elements and variables at once
@@ -14,57 +15,13 @@ const App = (() => {
     const restartButton = document.querySelector(".restart");
 
 
-    //Questions list
-    const q1 = new Question (
-        "What is the earliest cave painting site found?",
-            ["Altamira, Spain",
-            "Chauvet, France",
-            "Maros-Pangkep, Indonesia",
-            "Lascaux, France"],
-        2
-    );
-    const q2 = new Question (
-        "At the territory of which modern country is located ancient Babylon?",
-            ["Iraq",
-            "Syria",
-            "Jordan",
-            "Iran"],
-        0
-    );
-    const q3 = new Question (
-        "Where famous Egyptian pyramids are located?",
-            ["Karnak",
-            "Giza",
-            "Luxor",
-            "Saqqara"],
-        1
-    );
-    const q4 = new Question (
-        "Who was the first female emperor of Egypt?",
-            ["Nefertiti",
-            "Cleopatra",
-            "Tusret",
-            "Hatshepsut"],
-        3
-    );
-    const q5 = new Question (
-        "According to the legend, who Knossos palace (Crete) was built for?",
-            ["King Minos",
-            "Minotaur",
-            "Ariadne",
-            "Aegeus"],
-        1
-    );
 
-    //initialize the quiz
-    const myQuiz = new Quiz([q1, q2, q3, q4, q5]);
-    
     const listeners = () => {
         nextButton.addEventListener("click", function() {
             const selectedRadio = document.querySelector('input[name="choice"]:checked');
             if (selectedRadio) {
                 const guessKey = Number(selectedRadio.getAttribute("data-order"));
-                myQuiz.guess(guessKey);
+                ImportedQuestions.myQuiz.guess(guessKey);
                 renderAll();
             }
             else {
@@ -73,7 +30,7 @@ const App = (() => {
         })
         restartButton.addEventListener("click", function(){
             //1.reset the quiz
-            myQuiz.reset();
+            ImportedQuestions.myQuiz.reset();
             //2.render all again
             renderAll();
             //3.restore the next button and choices box
@@ -83,8 +40,6 @@ const App = (() => {
     }
 
 
-
-
     //Rendering components (output to the screen)
     //function to change inner HTML
     const setInnerHTML = (element, text) => {
@@ -92,13 +47,13 @@ const App = (() => {
     }
 
     const renderQuestion = () => {
-        const currentQuestion = myQuiz.getCurrentQuestion().question;
+        const currentQuestion = ImportedQuestions.myQuiz.getCurrentQuestion().question;
         setInnerHTML(questionEl, currentQuestion);
     }
 
     const renderChoices = () => {
         let choiceText = "";
-        const currentChoices = myQuiz.getCurrentQuestion().choices;
+        const currentChoices = ImportedQuestions.myQuiz.getCurrentQuestion().choices;
         currentChoices.forEach((elem, index) => {
             choiceText += `
             <li class="choice">
@@ -114,8 +69,8 @@ const App = (() => {
     }
 
     const renderTracker = () => {
-        const indexNow = myQuiz.currentIndex;
-        const totalQuestions = myQuiz.questions.length;
+        const indexNow = ImportedQuestions.myQuiz.currentIndex;
+        const totalQuestions = ImportedQuestions.myQuiz.questions.length;
         tracker.innerHTML = `${indexNow + 1} of ${totalQuestions}`;
         const currentProgress = (indexNow/totalQuestions)*100;
         progressBar.style.width = `${currentProgress}%`;
@@ -124,7 +79,7 @@ const App = (() => {
     const renderEndScreen = () => {
         setInnerHTML(questionEl, "Great Job!");
         setInnerHTML(tagLine, "Test is complete!");
-        setInnerHTML(tracker, `Your score is ${myQuiz.score} out of ${myQuiz.questions.length}`);
+        setInnerHTML(tracker, `Your score is ${ImportedQuestions.myQuiz.score} out of ${ImportedQuestions.myQuiz.questions.length}`);
         choiceUl.style.display = "none";
         nextButton.style.display = "none";
         progressBar.style.width = "100%";
@@ -132,7 +87,7 @@ const App = (() => {
 
 
     const renderAll = () => {
-        if (myQuiz.hasEnded()) {
+        if (ImportedQuestions.myQuiz.hasEnded()) {
             renderEndScreen();
         }
         else {
@@ -144,17 +99,20 @@ const App = (() => {
             //3. render the tracker
             renderTracker();
         }
+
     }
 
     return {
-        renderAll: renderAll,
-        listeners: listeners
+        renderAll,
+        listeners
     }
 
 
 
 })();
 
+
+ImportedQuestions.mainFunction();
 App.renderAll();
 App.listeners();
 
