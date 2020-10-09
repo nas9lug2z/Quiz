@@ -84,7 +84,9 @@
 }
 .choice {
     display: block;
-    min-width: 325px;
+    width: 335px;
+    /* max-width: max-content; */
+    max-height: max-content;
     border-radius: 4px;
     display: block;
     background-color: var(--light-grey);
@@ -95,7 +97,7 @@
     margin: 0.5rem;
 }
 .quiz__label {
-    padding: 2rem;
+    padding: 2rem 1.25rem;
     display: flex;
     align-items: center;
 }
