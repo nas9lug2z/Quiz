@@ -56,9 +56,7 @@ const importedQuestions = (_ => {
         //functions
         const request = await fetch(URL)
         const importedData = await request.json();
-        // console.log(importedData.results)
         const importedQuiz = await new Quiz(renderImportedData());
-        // console.log(importedQuiz)
         return importedQuiz;
     }
 
