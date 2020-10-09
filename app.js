@@ -2,7 +2,7 @@ import Question from "./question.js";
 import Quiz from "./quiz.js";
 import ImportedQuestions from "./api.js";
 
-const App = (() => {
+const App = ((myQuiz) => {
     //cache the DOM: get all elements and variables at once
     const quizEl = document.querySelector(".jabquiz");
     const questionEl = document.querySelector(".question");
@@ -14,14 +14,12 @@ const App = (() => {
     const nextButton = document.querySelector(".next");
     const restartButton = document.querySelector(".restart");
 
-
-
-    const listeners = () => {
+    const listeners = (myQuiz) => {
         nextButton.addEventListener("click", function() {
             const selectedRadio = document.querySelector('input[name="choice"]:checked');
             if (selectedRadio) {
                 const guessKey = Number(selectedRadio.getAttribute("data-order"));
-                ImportedQuestions.myQuiz.guess(guessKey);
+                myQuiz.guess(guessKey);
                 renderAll();
             }
             else {
@@ -30,7 +28,7 @@ const App = (() => {
         })
         restartButton.addEventListener("click", function(){
             //1.reset the quiz
-            ImportedQuestions.myQuiz.reset();
+            myQuiz.reset();
             //2.render all again
             renderAll();
             //3.restore the next button and choices box
@@ -46,14 +44,14 @@ const App = (() => {
         element.innerHTML = text;
     }
 
-    const renderQuestion = () => {
-        const currentQuestion = ImportedQuestions.myQuiz.getCurrentQuestion().question;
+    const renderQuestion = (myQuiz) => {
+        const currentQuestion = myQuiz.getCurrentQuestion().question;
         setInnerHTML(questionEl, currentQuestion);
     }
 
-    const renderChoices = () => {
+    const renderChoices = (myQuiz) => {
         let choiceText = "";
-        const currentChoices = ImportedQuestions.myQuiz.getCurrentQuestion().choices;
+        const currentChoices = myQuiz.getCurrentQuestion().choices;
         currentChoices.forEach((elem, index) => {
             choiceText += `
             <li class="choice">
@@ -68,36 +66,36 @@ const App = (() => {
         choiceUl.innerHTML = choiceText;
     }
 
-    const renderTracker = () => {
-        const indexNow = ImportedQuestions.myQuiz.currentIndex;
-        const totalQuestions = ImportedQuestions.myQuiz.questions.length;
+    const renderTracker = (myQuiz) => {
+        const indexNow = myQuiz.currentIndex;
+        const totalQuestions = myQuiz.questions.length;
         tracker.innerHTML = `${indexNow + 1} of ${totalQuestions}`;
         const currentProgress = (indexNow/totalQuestions)*100;
         progressBar.style.width = `${currentProgress}%`;
     }
 
-    const renderEndScreen = () => {
+    const renderEndScreen = (myQuiz) => {
         setInnerHTML(questionEl, "Great Job!");
         setInnerHTML(tagLine, "Test is complete!");
-        setInnerHTML(tracker, `Your score is ${ImportedQuestions.myQuiz.score} out of ${ImportedQuestions.myQuiz.questions.length}`);
+        setInnerHTML(tracker, `Your score is ${myQuiz.score} out of ${myQuiz.questions.length}`);
         choiceUl.style.display = "none";
         nextButton.style.display = "none";
         progressBar.style.width = "100%";
     }
 
 
-    const renderAll = () => {
-        if (ImportedQuestions.myQuiz.hasEnded()) {
-            renderEndScreen();
+    const renderAll = (myQuiz) => {
+        if (myQuiz.hasEnded(myQuiz)) {
+            renderEndScreen(myQuiz);
         }
         else {
             setInnerHTML(tagLine, "Pick an option below");
             //1. render the question
-            renderQuestion();
+            renderQuestion(myQuiz);
             //2. render the choices
-            renderChoices();
+            renderChoices(myQuiz);
             //3. render the tracker
-            renderTracker();
+            renderTracker(myQuiz);
         }
 
     }
@@ -111,8 +109,5 @@ const App = (() => {
 
 })();
 
-
-ImportedQuestions.mainFunction();
-App.renderAll();
-App.listeners();
+export default App;
 
