@@ -65,14 +65,20 @@ const App = (() => {
             if (selectedRadio) {
                 const guessKey = Number(selectedRadio.getAttribute("data-order"));
                 myQuiz.guess(guessKey);
+                renderAll();
             }
             else {
                 alert("Please select an option")
             }
-            console.log(selectedRadio)
         })
         restartButton.addEventListener("click", function(){
-            console.log("clicked restart");
+            //1.reset the quiz
+            myQuiz.reset();
+            //2.render all again
+            renderAll();
+            //3.restore the next button and choices box
+            choiceUl.style.display = "flex";
+            nextButton.style.display = "inline-block";
         })
     }
 
@@ -115,10 +121,19 @@ const App = (() => {
         progressBar.style.width = `${currentProgress}%`;
     }
 
-    
+    const renderEndScreen = () => {
+        setInnerHTML(questionEl, "Great Job!");
+        setInnerHTML(tagLine, "Test is complete!");
+        setInnerHTML(tracker, `Your score is ${myQuiz.score} out of ${myQuiz.questions.length}`);
+        choiceUl.style.display = "none";
+        nextButton.style.display = "none";
+        progressBar.style.width = "100%";
+    }
+
+
     const renderAll = () => {
         if (myQuiz.hasEnded()) {
-            //show the end screen
+            renderEndScreen();
         }
         else {
             //1. render the question
