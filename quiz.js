@@ -1,3 +1,5 @@
+import Main from "./main.js"
+
 export default function Quiz(questions) {
     this.questions = questions;
     this.score = 0;
@@ -20,6 +22,5 @@ Quiz.prototype.guess = function(userGuess) {
     this.nextIndex();
 }
 Quiz.prototype.reset = function() {
-    this.score = 0;
-    this.currentIndex = 0;
+    location.reload()
 }

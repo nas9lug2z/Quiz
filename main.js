@@ -4,15 +4,17 @@ import ImportedQuestions from "./api.js";
 import App from "./app.js";
 import importedQuestions from "./api.js";
 
-const main = (async _ => {
-    const renderQuestions = await ImportedQuestions.mainFunction();
-    console.log(renderQuestions)
-    const renderVisual = await App.renderAll(renderQuestions);
-    App.listeners(renderQuestions);
+const Main = (_ => {
+    const asyncFunc = async _ => {
+        const renderQuestions = await ImportedQuestions.mainFunction();
+        const renderVisual = await App.renderAll(renderQuestions);
+        App.listeners(renderQuestions);
+    }
+    return {
+        asyncFunc
+    }
 })();
 
+Main.asyncFunc();
 
-
-// console.log(ImportedQuestions.mainFunction());
-// const quiz = ImportedQuestions.mainFunction();
-// App.renderAll(quiz)
+export default Main;

@@ -20,7 +20,7 @@ const App = ((myQuiz) => {
             if (selectedRadio) {
                 const guessKey = Number(selectedRadio.getAttribute("data-order"));
                 myQuiz.guess(guessKey);
-                renderAll();
+                renderAll(myQuiz);
             }
             else {
                 alert("Please select an option")
@@ -30,7 +30,7 @@ const App = ((myQuiz) => {
             //1.reset the quiz
             myQuiz.reset();
             //2.render all again
-            renderAll();
+            renderAll(myQuiz);
             //3.restore the next button and choices box
             choiceUl.style.display = "flex";
             nextButton.style.display = "inline-block";
@@ -85,7 +85,7 @@ const App = ((myQuiz) => {
 
 
     const renderAll = (myQuiz) => {
-        if (myQuiz.hasEnded(myQuiz)) {
+        if (myQuiz.hasEnded()) {
             renderEndScreen(myQuiz);
         }
         else {
