@@ -1,6 +1,6 @@
 import Question from "./question.js";
 import Quiz from "./quiz.js";
-import ImportedQuestions from "./api.js";
+import ImportedQuestions from "./API.js";
 
 const App = ((myQuiz) => {
     //cache the DOM: get all elements and variables at once
